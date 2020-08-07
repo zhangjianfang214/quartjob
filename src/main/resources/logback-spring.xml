@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 日志文件存储位置 -->
+    <property name="LOG_PATH" value="${user.dir}/log"/>
+    <!-- 日志名称 -->
+    <property name="LOG_FILE" value="workflow.log"/>
+    <!-- 历史日志格式-->
+    <property name="LOG_HISTORY" value="workflow.%d{yyyy-MM-dd}.%i.log"/>
+    <!-- 日志输出格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n"/>
+    <!-- 日志文件最大大小 -->
+    <property name="MAX_FILE_SIZE" value="100MB"/>
+    <!-- 日志文件保存的最大天数 -->
+    <property name="MAX_FILE_SAVE_DAY" value="15"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder  charset="UTF-8">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE}</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_HISTORY}</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_FILE_SAVE_DAY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                ${CONSOLE_LOG_PATTERN}
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
+

@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    service-url:
+#      defaultZone: http://192.168.163.151:8761/eureka
+
+spring:
+  datasource:
+    driver-class-name: dm.jdbc.driver.DmDriver
+    url: jdbc:dm://192.168.163.150:5236?compatibleMode=oracle
+    username: AMOS
+    password: amos_1234
+  redis:
+    host: 192.168.163.151
+    port: 6379
+    password: qdcares805
+    timeout: 5000ms
+  cache:
+    cache-names: folderinfo
