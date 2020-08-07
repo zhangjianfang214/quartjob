@@ -1,0 +1,61 @@
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    &lt;!&ndash; 数据库驱动:选择你的本地硬盘上面的数据库驱动包&ndash;&gt;
+    <classPathEntry location="D:/dmdbms/DmJdbcDriver-1.7.0.jar"/>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        &lt;!&ndash; JavaBean 实现 序列化 接口 &ndash;&gt;
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        &lt;!&ndash; 生成toString &ndash;&gt;
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        &lt;!&ndash; optional，旨在创建class时，对注释进行控制 &ndash;&gt;
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            &lt;!&ndash; <property name="suppressAllComments" value="true"/>&ndash;&gt;
+        </commentGenerator>
+        &lt;!&ndash;数据库链接URL，用户名、密码 &ndash;&gt;
+        <jdbcConnection driverClass="dm.jdbc.driver.DmDriver"
+                        connectionURL="jdbc:dm://192.168.163.150:5236/SYSDBA?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="AMOS"
+                        password="amos_1234">
+        </jdbcConnection>
+        &lt;!&ndash; 类型转换 &ndash;&gt;
+        <javaTypeResolver >
+            &lt;!&ndash; 是否使用bigDecimal,
+                false: 把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer(默认)
+                true:  把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+            &ndash;&gt;
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        &lt;!&ndash; 生成模型的包名和位置&ndash;&gt;
+        <javaModelGenerator targetPackage="com.taocares.amos.workflow.entity" targetProject="src/main/java">
+            &lt;!&ndash; 默认false 是否允许子包 &ndash;&gt;
+            <property name="enableSubPackages" value="true" />
+            &lt;!&ndash; 默认false 是否对model添加 构造函数 &ndash;&gt;
+            <property name="constructorBased" value="false"/>
+            &lt;!&ndash; 默认false 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 &ndash;&gt;
+            <property name="immutable" value="false"/>
+            &lt;!&ndash; 默认false 是否对类CHAR类型的列的数据进行trim操作 &ndash;&gt;
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        &lt;!&ndash; 生成映射文件的包名和位置&ndash;&gt;
+        <sqlMapGenerator targetPackage="Mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        &lt;!&ndash; 生成DAO的包名和位置&ndash;&gt;
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.taocares.amos.workflow.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        &lt;!&ndash; 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名&ndash;&gt;
+        &lt;!&ndash; <table tableName="risk_model_order" domainObjectName="DSRiskModelOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+         <table tableName="tel_bill_record" domainObjectName="DSTelBillRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>&ndash;&gt;
+
+        <table tableName="AMOS_DESIGN_AWARD_PROCESS">
+
+        </table>
+    </context>
+</generatorConfiguration>
+-->
