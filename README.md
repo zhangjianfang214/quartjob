@@ -7,12 +7,18 @@
 主要功能介绍
 ========
 
-*通过接口添加定时任务，该定时任务需要配置的具体信息有：* **cron定时时间表达式、http请求链接、http请求方式以及对应的参数** 具体如下：
-`/**
-     * GET or POST
-     */
-    private String httpMethod;
-    /**
+*通过接口添加定时任务，该定时任务需要配置的具体信息有：* **cron定时时间表达式、http请求链接、http请求方式以及对应的参数** 具体如下：  
+
+`/**  
+
+     * GET or POST  
+     
+     */  
+     
+    private String httpMethod;  
+    
+    /**  
+    
      * http请求链接
      */
     private String url;
