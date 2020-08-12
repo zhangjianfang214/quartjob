@@ -23,13 +23,15 @@
  
  主要API：
  =======
+ + 添加定时任务配置，并执行
+  `quartzManager/addJob`
  + 查询所有配置 
  `quartzManager/findJobs`
  + 重新加载所有定时任务，并执行 
- ``
+ `quartzManager/reloadJobs`
  + 修改一个任务的触发时间 
- ``
+ `quartzManager/modifyJobTime`
  + 停止执行指定的定时任务 
- ``
+ `quartzManager/removeJob`
  + 开始执行指定的定时任务 
- ``
+ `quartzManager/startJobs`
