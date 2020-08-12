@@ -1,7 +1,8 @@
 package com.quartjob.core.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.quartjob.core.dao.quartz.AmosQuartzDao;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.quartjob.core.dao.quartz.QuartzJobDao;
 import com.quartjob.core.dto.quart.QuartzJob;
 import com.quartjob.core.entity.quartz.JobEntity;
 import com.quartjob.core.service.QuartJobService;
@@ -20,19 +21,19 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class QuartJobServiceImpl implements QuartJobService {
+public class QuartJobServiceImpl extends ServiceImpl<QuartzJobDao,JobEntity> implements QuartJobService {
 
     private static SchedulerFactory gSchedulerFactory = new StdSchedulerFactory();
     private static String JOB_GROUP_NAME = "EXTJWEB_JOBGROUP_NAME";
     private static String TRIGGER_GROUP_NAME = "EXTJWEB_TRIGGERGROUP_NAME";
 
     @Autowired
-    private AmosQuartzDao amosQuartzDao;
+    private QuartzJobDao quartzJobDao;
 
     @Override
     public void addJob(JobEntity jobEntity) {
         jobEntity.setStatus(ConstantMsgs.Status.NOMAL);
-        amosQuartzDao.insertJobEntity(jobEntity);
+        quartzJobDao.insertJobEntity(jobEntity);
 
         addToScheduler(jobEntity);
     }
@@ -41,7 +42,7 @@ public class QuartJobServiceImpl implements QuartJobService {
     public void reloadJobs() {
         QueryWrapper<JobEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(JobEntity::getStatus,ConstantMsgs.Status.NOMAL);
-        List<JobEntity> list = amosQuartzDao.selectList(queryWrapper);
+        List<JobEntity> list = quartzJobDao.selectList(queryWrapper);
         if(!CollectionUtils.isEmpty(list)){
             list.forEach(x->addToScheduler(x));
         }
@@ -51,13 +52,13 @@ public class QuartJobServiceImpl implements QuartJobService {
     public ResponseEntity findJobs() {
         QueryWrapper<JobEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(JobEntity::getStatus,ConstantMsgs.Status.NOMAL);
-        List<JobEntity> list = amosQuartzDao.selectList(queryWrapper);
+        List<JobEntity> list = quartzJobDao.selectList(queryWrapper);
         return new ResponseEntity(ConstantMsgs.SUCCESS,list.size(),list);
     }
 
     @Override
     public void modifyJobTime(JobEntity jobEntity) {
-        amosQuartzDao.updateById(jobEntity);
+        quartzJobDao.updateById(jobEntity);
 
         String jobName = jobEntity.getName();
         String time = jobEntity.getTime();
@@ -80,7 +81,7 @@ public class QuartJobServiceImpl implements QuartJobService {
 
     @Override
     public ResponseEntity removeJob(JobEntity jobEntity) {
-        JobEntity job = amosQuartzDao.selectById(jobEntity.getId());
+        JobEntity job = quartzJobDao.selectById(jobEntity.getId());
         if(job == null){
             return new ResponseEntity(ConstantMsgs.FAIL, BizExceptionEnum.UNKNOWN_ENTITY.getCode(), BizExceptionEnum.UNKNOWN_ENTITY.getMsg());
         }
@@ -97,6 +98,10 @@ public class QuartJobServiceImpl implements QuartJobService {
         return new ResponseEntity(ConstantMsgs.SUCCESS);
     }
 
+    @Override
+    public void startJob(JobEntity jobEntity) {
+        addToScheduler(jobEntity);
+    }
 
     /**
      * 添加到定时任务触发器
@@ -115,7 +120,6 @@ public class QuartJobServiceImpl implements QuartJobService {
 // 触发器
             CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, TRIGGER_GROUP_NAME)
                     .withSchedule(CronScheduleBuilder.cronSchedule(time)).build();// 触发器名,触发器组
-//            trigger.setCronExpression(time);// 触发器时间设定
             sched.scheduleJob(jobDetail, trigger);
 // 启动
             if (!sched.isShutdown()) {

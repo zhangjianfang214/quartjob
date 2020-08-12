@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quartjob.core.dao.quartz.QuartzJobDao">
+
+    <insert id="insertJobEntity" parameterType="com.quartjob.core.entity.quartz.JobEntity">
+        insert into AMOS_QUARTZ_JOB
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="httpMethod != null">
+                HTTP_METHOD,
+            </if>
+            <if test="time != null">
+                TIME,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="params != null">
+                PARAMS,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="httpMethod != null">
+                #{httpMethod},
+            </if>
+            <if test="time != null">
+                #{time},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="params != null">
+                #{params},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser}
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

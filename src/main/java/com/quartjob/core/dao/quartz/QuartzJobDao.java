@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @version : 1.0
- * @author Kangning Wang
+ * @author zjf
  * @date : 2019/11/21
  **/
 
 @Mapper
 @Repository
-public interface AmosQuartzDao extends BaseMapper<JobEntity> {
+public interface QuartzJobDao extends BaseMapper<JobEntity> {
 
     void insertJobEntity(JobEntity jobEntity);
 
