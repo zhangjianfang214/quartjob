@@ -11,19 +11,25 @@
 
 `   /**  
      * GET or POST  
-     */  
+     */
+
     private String httpMethod;  
+    
     /**  
      * http请求链接
      */
+
     private String url;
     /**
      * 时间设置，参考quartz说明文档
      */
+
     private String time;
+
     /**
      * post请求时为json格式
      */
+
     private String params;  `
  
  主要API：
